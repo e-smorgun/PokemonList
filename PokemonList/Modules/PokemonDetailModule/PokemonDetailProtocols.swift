@@ -17,6 +17,6 @@ protocol PokemonDetailRouterProtocol {
 }
 
 protocol PokemonDetailInteractorProtocol {
-    var UrlData: String { get set }
-    func fetchPokemons(completion: @escaping (Result<PokemonResult, Error>) -> Void)
+    var urlData: String { get set }
+    func fetchPokemonDetail(completion: @escaping (Result<PokemonResult, Error>) -> Void)
 }

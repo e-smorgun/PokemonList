@@ -24,7 +24,7 @@ struct PokemonRowView: View {
 
 struct PokemonListView_Previews1: PreviewProvider {
     static var previews: some View {
-        let interactor = PokemonListInteractor()
+        let interactor = PokemonListInteractor(service: PokemonListService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching())))
         let presenter = PokemonListPresenter(interactor: interactor)
         PokemonListView(presenter: presenter)
     }

@@ -9,16 +9,17 @@ import Foundation
 import SwiftUI
 
 class PokemonDetailInteractor: PokemonDetailInteractorProtocol {
-    private let service = PokemonDetailService()
+    private let service: PokemonDetailService
+
+    var urlData: String
     
-    var UrlData: String
+    init(service: PokemonDetailService, urlData: String) {
+          self.service = service
+          self.urlData = urlData
+      }
     
-    init(UrlData: String) {
-        self.UrlData = UrlData
-    }
-    
-    func fetchPokemons(completion: @escaping (Result<PokemonResult, Error>) -> Void) {
-        print("URL: ", UrlData)
-        service.fetchDetail(url: UrlData, completion: completion)
+    func fetchPokemonDetail(completion: @escaping (Result<PokemonResult, Error>) -> Void) {
+        print("URL: ", urlData)
+        service.fetchDetail(url: urlData, completion: completion)
     }
 }

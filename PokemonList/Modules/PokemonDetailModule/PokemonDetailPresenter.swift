@@ -22,7 +22,7 @@ final class PokemonDetailPresenter: ObservableObject, PokemonDetailPresenterProt
     func fetchPokemonData() {
         isLoading = true
         
-        interactor.fetchPokemons() { result in
+        interactor.fetchPokemonDetail() { result in
             switch result {
             case .success(let response):
                 self.pokemon = response

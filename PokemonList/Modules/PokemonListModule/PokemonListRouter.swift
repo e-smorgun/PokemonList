@@ -11,7 +11,8 @@ import SwiftUI
 
 class PokemonListRouter {
     func makeDetailView(url: String) -> some View {
-        let interactor = PokemonDetailInteractor(UrlData: url)
+        let service = PokemonDetailService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching()))
+        let interactor = PokemonDetailInteractor(service: service, urlData: url)
         let presenter = PokemonDetailPresenter(interactor: interactor)
         
         return PokemonDetailView(presenter: presenter)

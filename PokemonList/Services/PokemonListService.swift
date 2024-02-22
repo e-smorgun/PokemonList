@@ -8,12 +8,16 @@
 import Foundation
 
 class PokemonListService {
-    private let dataService = DataService()
+    private let dataService: DataService
+
+    init(dataService: DataService) {
+        self.dataService = dataService
+    }
 
     func fetchList(url: String? = nil, completion: @escaping (Result<PokemonListResult, Error>) -> Void) {
         let urlString = url ?? "https://pokeapi.co/api/v2/pokemon"
         guard let url = URL(string: urlString) else {
-            print("Invalid URL")
+            completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
             return
         }
         dataService.fetchModel(from: url, completion: completion)
