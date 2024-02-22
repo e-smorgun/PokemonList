@@ -15,6 +15,7 @@ struct PokemonListView: View {
                 loadingView
             } else if presenter.error != "" {
                 Text(presenter.error)
+                    .lineLimit(0)
             } else {
                 pokemonListView
             }
