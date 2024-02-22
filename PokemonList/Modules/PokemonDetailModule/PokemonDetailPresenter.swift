@@ -31,7 +31,7 @@ final class PokemonDetailPresenter: ObservableObject, PokemonDetailPresenterProt
             case .failure(let error):
                 print("Failed to fetch pokemon list: \(error.localizedDescription)")
             }
-           // self.checkData()
+           self.checkData()
         }
     }
     
@@ -51,12 +51,6 @@ final class PokemonDetailPresenter: ObservableObject, PokemonDetailPresenterProt
         print("ID:", pokemon?.id)
         print("Name", pokemon?.name)
         print("")
-        
-        if let pokemon = pokemon {
-            for sprite in pokemon.sprites.allSprites {
-                print("Sprite", sprite)
-            }
-        }
         
         print("")
         if let pokemon = pokemon {

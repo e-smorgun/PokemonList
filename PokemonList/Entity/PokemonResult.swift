@@ -29,65 +29,41 @@ struct PokemonResult: Codable {
 }
 
 // MARK: - Species
-struct Species: Codable {
+struct Species: Codable, Hashable {
     let name: String
+
+    // Implementing Hashable
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
+
+    static func == (lhs: Species, rhs: Species) -> Bool {
+        return lhs.name == rhs.name
+    }
 }
 
 // MARK: - Sprites
 class Sprites: Codable {
-    let backDefault: String?
-    let backFemale: String?
-    let backShiny: String?
-    let backShinyFemale: String?
     let frontDefault: String?
-    let frontFemale: String?
-    let frontShiny: String?
-    let frontShinyFemale: String?
+
 
     enum CodingKeys: String, CodingKey {
-        case backDefault = "back_default"
-        case backFemale = "back_female"
-        case backShiny = "back_shiny"
-        case backShinyFemale = "back_shiny_female"
         case frontDefault = "front_default"
-        case frontFemale = "front_female"
-        case frontShiny = "front_shiny"
-        case frontShinyFemale = "front_shiny_female"
     }
-    
-    var allSprites: [String] {
-           var sprites: [String] = []
-           if let backDefault = backDefault {
-               sprites.append("backDefault " + backDefault)
-           }
-           if let backFemale = backFemale {
-               sprites.append("backFemale " + backFemale)
-           }
-           if let backShiny = backShiny {
-               sprites.append(backShiny)
-           }
-           if let backShinyFemale = backShinyFemale {
-               sprites.append(backShinyFemale)
-           }
-           if let frontDefault = frontDefault {
-               sprites.append(frontDefault)
-           }
-           if let frontFemale = frontFemale {
-               sprites.append(frontFemale)
-           }
-           if let frontShiny = frontShiny {
-               sprites.append(frontShiny)
-           }
-           if let frontShinyFemale = frontShinyFemale {
-               sprites.append(frontShinyFemale)
-           }
-
-        return sprites
-       }
 }
 
 // MARK: - TypeElement
-struct TypeElement: Codable {
+struct TypeElement: Codable, Hashable {
     let slot: Int
     let type: Species
+    
+    // Implementing Hashable
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(slot)
+            hasher.combine(type)
+        }
+
+        static func == (lhs: TypeElement, rhs: TypeElement) -> Bool {
+            return lhs.slot == rhs.slot && lhs.type == rhs.type
+        }
 }

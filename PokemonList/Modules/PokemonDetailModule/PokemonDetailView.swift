@@ -12,47 +12,19 @@ struct PokemonDetailView: View {
     
     var body: some View {
         ScrollView {
-            if presenter.isLoading == true {
+            if presenter.isLoading {
                 loadingView
             } else {
-                VStack {
-                    
-                    AsyncImage(url: URL(string: presenter.pokemon?.sprites.frontDefault ?? "LoadData")) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } placeholder: {
-                        ZStack {
-                            Rectangle()
-                                .foregroundColor(.gray)
-                            ProgressView()
-                        }
+                VStack(alignment: .center) {
+                    pokemonImageView
+                    if let pokemon = presenter.pokemon {
+                        pokemonInfoView(pokemon: pokemon)
                     }
-                    .frame(width: 350, height: 350)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 35)
-                            .stroke(Color.black, lineWidth: 2)
-                    )
-                    
-                    Text("Base Exp: \(presenter.pokemon!.baseExperience)")
-
-                    
-                    if let height = presenter.pokemon?.height {
-                        Text("Height: \(String(height))")
-                    } else {
-                        Text("Height Not Found")
-                    }
-                    if let weight = presenter.pokemon?.weight {
-                        Text("Weight: \(String(weight))")
-                    } else {
-                        Text("Weight Not Found")
-                    }
-                    
-                    
                 }
-                .navigationBarTitle(Text(presenter.pokemon!.name.capitalized), displayMode: .inline)
             }
-        }.onAppear {
+        }
+        .padding(.horizontal, 10)
+        .onAppear {
             presenter.fetchPokemonData()
         }
     }
@@ -63,10 +35,89 @@ struct PokemonDetailView: View {
             Text("Loading Data from Server")
         }
     }
-}
+    
+    var pokemonImageView: some View {
+        Group {
+            if let imageUrl = presenter.pokemon?.sprites.frontDefault {
+                AsyncImage(url: URL(string: imageUrl)) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } placeholder: {
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(.gray)
+                        ProgressView()
+                    }
+                }
+                .frame(width: 350, height: 350)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 35)
+                        .stroke(Color.black, lineWidth: 2)
+                )
+            } else {
+                Image("Not Found")
+                    .resizable()
+                    .frame(width: 350, height: 250)
+            }
+        }
+    }
+    
+    func pokemonInfoView(pokemon: PokemonResult) -> some View {
+        VStack(alignment: .leading) {
+            Text(pokemon.name.capitalized)
+                .font(.system(size: 36))
+                .bold()
+                
+            Text("№ \(String(pokemon.id))")
+                .font(.system(size: 20))
+                .foregroundStyle(.gray)
+                .bold()
+                .padding(.bottom, 20)
+            
+            
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(pokemon.types, id: \.self) { element in
+                        ElementRowView(element: element.type.name)
+                    }
+                }
+            }.padding(.bottom, 20)
+            
+            Divider()
+            
+            HStack(alignment: .center, spacing: 40) {
+                Spacer()
+                pokemonStatsView(stat: "Height", value: "\(pokemon.height * 100) cm")
+                     
+                pokemonStatsView(stat: "Weight", value: "\(pokemon.weight) kg")
+                Spacer()
 
-struct PokemonDetailtView_Previews: PreviewProvider {
-    static var previews: some View {
-        PokemonDetailView(presenter: PokemonDetailPresenter(interactor: PokemonDetailInteractor(UrlData: "https://pokeapi.co/api/v2/pokemon/1/")))
+            }
+        }
+    }
+    
+    func pokemonStatsView(stat: String, value: String) -> some View {
+        VStack {
+            Text(stat)
+                .font(.system(size: 24))
+            
+            Text(value)
+                .bold()
+                .padding(.vertical, 10)
+                .padding(.horizontal, 30)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.black, lineWidth: 2)
+                )
+        }
     }
 }
+    
+    
+    struct PokemonDetailtView_Previews: PreviewProvider {
+        static var previews: some View {
+            PokemonDetailView(presenter: PokemonDetailPresenter(interactor: PokemonDetailInteractor(UrlData: "https://pokeapi.co/api/v2/pokemon/1/")))
+        }
+    }
+
