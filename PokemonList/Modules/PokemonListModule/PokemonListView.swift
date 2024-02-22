@@ -11,8 +11,10 @@ struct PokemonListView: View {
     
     var body: some View {
         NavigationView {
-            if presenter.isLoading == true {
+            if presenter.isLoading {
                 loadingView
+            } else if presenter.error != "" {
+                Text(presenter.error)
             } else {
                 pokemonListView
             }

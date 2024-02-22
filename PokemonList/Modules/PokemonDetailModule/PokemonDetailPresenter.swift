@@ -12,7 +12,8 @@ final class PokemonDetailPresenter: ObservableObject, PokemonDetailPresenterProt
     private let interactor: PokemonDetailInteractorProtocol
 
     var pokemon: PokemonResult?
-
+    
+    @Published var error: String = ""
     @Published var isLoading: Bool = true
     
     init(interactor: PokemonDetailInteractorProtocol) {
@@ -27,11 +28,11 @@ final class PokemonDetailPresenter: ObservableObject, PokemonDetailPresenterProt
             case .success(let response):
                 self.pokemon = response
                 self.isLoading = false
-                print("Loading:", self.isLoading)
             case .failure(let error):
+                self.isLoading = false
+                self.error = "Failed to fetch pokemon detail: \(error.localizedDescription)"
                 print("Failed to fetch pokemon list: \(error.localizedDescription)")
             }
-           self.checkData()
         }
     }
     

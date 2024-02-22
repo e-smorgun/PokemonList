@@ -14,6 +14,8 @@ struct PokemonDetailView: View {
         ScrollView {
             if presenter.isLoading {
                 loadingView
+            } else if presenter.error != "" {
+                Text(presenter.error)
             } else {
                 VStack(alignment: .center) {
                     pokemonImageView
@@ -117,7 +119,7 @@ struct PokemonDetailView: View {
     
     struct PokemonDetailtView_Previews: PreviewProvider {
         static var previews: some View {
-            PokemonDetailView(presenter: PokemonDetailPresenter(interactor: PokemonDetailInteractor(service: PokemonDetailService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching())), urlData: "https://pokeapi.co/api/v2/pokemon/1/")))
+            PokemonDetailView(presenter: PokemonDetailPresenter(interactor: PokemonDetailInteractor(service: PokemonDetailService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching())), urlData: "https://pokeapi.co/api/v2/pokemon/-1/")))
         }
     }
 

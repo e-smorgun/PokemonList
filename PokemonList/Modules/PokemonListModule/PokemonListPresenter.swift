@@ -14,6 +14,7 @@ final class PokemonListPresenter: ObservableObject, PokemonListPresenterProtocol
     
     private var nextURL: String = ""
     private var previousURL: String = ""
+    @Published var error: String = ""
     @Published var isLoading: Bool = true
     
     @Published var pokemonList: [Results] = []
@@ -34,6 +35,7 @@ final class PokemonListPresenter: ObservableObject, PokemonListPresenterProtocol
                 self.previousURL = pokemonResult.previous ?? ""
                 self.isLoading = false
             case .failure(let error):
+                self.error = "Failed to fetch pokemon list: \(error.localizedDescription)"
                 print("Failed to fetch pokemon list: \(error.localizedDescription)")
             }
         }
