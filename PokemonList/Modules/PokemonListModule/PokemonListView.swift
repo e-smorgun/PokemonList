@@ -4,6 +4,7 @@
 //
 //  Created by Evgeny on 17.02.24.
 //
+
 import SwiftUI
 
 struct PokemonListView: View {
@@ -28,7 +29,7 @@ struct PokemonListView: View {
     var loadingView: some View {
         VStack {
             ProgressView()
-            Text("Loading Data from Server")
+            Text(NSLocalizedString("loading_data", comment: ""))
         }
     }
     
@@ -41,7 +42,7 @@ struct PokemonListView: View {
                     }
                 }
             }
-            .navigationTitle("Pokemon List")
+            .navigationTitle(NSLocalizedString("pokemon_list", comment: ""))
             .listStyle(PlainListStyle())
             
             pagingView
@@ -53,7 +54,7 @@ struct PokemonListView: View {
             Button(action: {
                 presenter.fetchPreviousPokemonList()
             }) {
-                Text("Previous")
+                Text(NSLocalizedString("previous", comment: ""))
                     .padding()
                     .foregroundColor(.white)
                     .background(Color.blue)
@@ -66,7 +67,7 @@ struct PokemonListView: View {
             Button(action: {
                 presenter.fetchNextPokemonList()
             }) {
-                Text("Next")
+                Text(NSLocalizedString("next", comment: ""))
                     .padding()
                     .foregroundColor(.white)
                     .background(Color.blue)

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5C4D9B742B849548000B2F57 /* ElementRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4D9B732B849548000B2F57 /* ElementRowView.swift */; };
 		5C52E6EA2B89D79400E43F74 /* PokemonAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52E6E92B89D79400E43F74 /* PokemonAPI.swift */; };
+		5C52E6EC2B89F51000E43F74 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5C52E6EB2B89F51000E43F74 /* Localizable.strings */; };
 		5C5F0F252B7FB6240089698E /* PokemonListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5F0F242B7FB6240089698E /* PokemonListApp.swift */; };
 		5C5F0F292B7FB6260089698E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C5F0F282B7FB6260089698E /* Assets.xcassets */; };
 		5C5F0F2C2B7FB6260089698E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C5F0F2B2B7FB6260089698E /* Preview Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		5C4D9B732B849548000B2F57 /* ElementRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementRowView.swift; sourceTree = "<group>"; };
 		5C52E6E92B89D79400E43F74 /* PokemonAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonAPI.swift; sourceTree = "<group>"; };
+		5C52E6EB2B89F51000E43F74 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		5C5F0F212B7FB6240089698E /* PokemonList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C5F0F242B7FB6240089698E /* PokemonListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListApp.swift; sourceTree = "<group>"; };
 		5C5F0F282B7FB6260089698E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 		5C5F0F332B7FBF430089698E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5C52E6EB2B89F51000E43F74 /* Localizable.strings */,
 				5C5F0F282B7FB6260089698E /* Assets.xcassets */,
 				5C5F0F2A2B7FB6260089698E /* Preview Content */,
 			);
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C5F0F2C2B7FB6260089698E /* Preview Assets.xcassets in Resources */,
+				5C52E6EC2B89F51000E43F74 /* Localizable.strings in Resources */,
 				5C5F0F292B7FB6260089698E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  PokemonList
+
+  Created by Evgeny on 24.02.24.
+  
+*/
+
+"loading_data" = "Loading Data from Server";
+"not_found" = "Not Found";
+"height" = "Height";
+"weight" = "Weight";
+"failed_to_fetch_pokemon_data" = "Failed to fetch pokemon data: %@";
+"failed_to_fetch_pokemon_list" = "Failed to fetch pokemon list: %@";
+"pokemon_list" = "Pokemon List";
+"previous" = "Previous";
+"next" = "Next";
+

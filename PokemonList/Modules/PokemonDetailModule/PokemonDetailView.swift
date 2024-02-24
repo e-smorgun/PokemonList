@@ -34,7 +34,7 @@ struct PokemonDetailView: View {
     var loadingView: some View {
         VStack {
             ProgressView()
-            Text("Loading Data from Server")
+            Text(NSLocalizedString("loading_data", comment: ""))
         }
     }
     
@@ -58,7 +58,7 @@ struct PokemonDetailView: View {
                         .stroke(Color.black, lineWidth: 2)
                 )
             } else {
-                Image("Not Found")
+                Image(NSLocalizedString("not_found", comment: ""))
                     .resizable()
                     .frame(width: 350, height: 250)
             }
@@ -90,9 +90,9 @@ struct PokemonDetailView: View {
             
             HStack(alignment: .center, spacing: 40) {
                 Spacer()
-                pokemonStatsView(stat: "Height", value: "\(pokemon.height * 100) cm")
+                pokemonStatsView(stat: NSLocalizedString("height", comment: ""), value: "\(pokemon.height * 100) cm")
                      
-                pokemonStatsView(stat: "Weight", value: "\(pokemon.weight) kg")
+                pokemonStatsView(stat: NSLocalizedString("weight", comment: ""), value: "\(pokemon.weight) kg")
                 Spacer()
 
             }
