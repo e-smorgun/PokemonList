@@ -10,11 +10,18 @@ import SwiftUI
 struct PokemonListView: View {
     @ObservedObject var presenter: PokemonListPresenter
     
+    enum Constants {
+        static let loadingData = NSLocalizedString("loading_data", comment: "")
+        static let pokemonListTitle = NSLocalizedString("pokemon_list", comment: "")
+        static let previousButtonTitle = NSLocalizedString("previous", comment: "")
+        static let nextButtonTitle = NSLocalizedString("next", comment: "")
+    }
+    
     var body: some View {
         NavigationView {
             if presenter.isLoading {
                 loadingView
-            } else if presenter.error != "" {
+            } else if !presenter.error.isEmpty {
                 Text(presenter.error)
                     .lineLimit(0)
             } else {
@@ -29,7 +36,7 @@ struct PokemonListView: View {
     var loadingView: some View {
         VStack {
             ProgressView()
-            Text(NSLocalizedString("loading_data", comment: ""))
+            Text(Constants.loadingData)
         }
     }
     
@@ -42,7 +49,7 @@ struct PokemonListView: View {
                     }
                 }
             }
-            .navigationTitle(NSLocalizedString("pokemon_list", comment: ""))
+            .navigationTitle(Constants.pokemonListTitle)
             .listStyle(PlainListStyle())
             
             pagingView
@@ -54,7 +61,7 @@ struct PokemonListView: View {
             Button(action: {
                 presenter.fetchPreviousPokemonList()
             }) {
-                Text(NSLocalizedString("previous", comment: ""))
+                Text(Constants.previousButtonTitle)
                     .padding()
                     .foregroundColor(.white)
                     .background(Color.blue)
@@ -67,7 +74,7 @@ struct PokemonListView: View {
             Button(action: {
                 presenter.fetchNextPokemonList()
             }) {
-                Text(NSLocalizedString("next", comment: ""))
+                Text(Constants.nextButtonTitle)
                     .padding()
                     .foregroundColor(.white)
                     .background(Color.blue)

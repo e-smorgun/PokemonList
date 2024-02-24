@@ -10,11 +10,18 @@ import SwiftUI
 struct PokemonDetailView: View {
     @ObservedObject var presenter: PokemonDetailPresenter
     
+    enum Constants {
+        static let loadingData = NSLocalizedString("loading_data", comment: "")
+        static let notFound = NSLocalizedString("not_found", comment: "")
+        static let height = NSLocalizedString("height", comment: "")
+        static let weight = NSLocalizedString("weight", comment: "")
+    }
+    
     var body: some View {
         ScrollView {
             if presenter.isLoading {
                 loadingView
-            } else if presenter.error != "" {
+            } else if !presenter.error.isEmpty {
                 Text(presenter.error)
             } else {
                 VStack(alignment: .center) {
@@ -34,7 +41,7 @@ struct PokemonDetailView: View {
     var loadingView: some View {
         VStack {
             ProgressView()
-            Text(NSLocalizedString("loading_data", comment: ""))
+            Text(Constants.loadingData)
         }
     }
     
@@ -58,7 +65,7 @@ struct PokemonDetailView: View {
                         .stroke(Color.black, lineWidth: 2)
                 )
             } else {
-                Image(NSLocalizedString("not_found", comment: ""))
+                Image(Constants.notFound)
                     .resizable()
                     .frame(width: 350, height: 250)
             }
@@ -90,9 +97,9 @@ struct PokemonDetailView: View {
             
             HStack(alignment: .center, spacing: 40) {
                 Spacer()
-                pokemonStatsView(stat: NSLocalizedString("height", comment: ""), value: "\(pokemon.height * 100) cm")
+                pokemonStatsView(stat: Constants.height, value: "\(pokemon.height * 100) cm")
                      
-                pokemonStatsView(stat: NSLocalizedString("weight", comment: ""), value: "\(pokemon.weight) kg")
+                pokemonStatsView(stat: Constants.weight, value: "\(pokemon.weight) kg")
                 Spacer()
 
             }
@@ -117,9 +124,8 @@ struct PokemonDetailView: View {
 }
     
     
-    struct PokemonDetailtView_Previews: PreviewProvider {
+    struct PokemonDetailView_Previews: PreviewProvider {
         static var previews: some View {
             PokemonDetailView(presenter: PokemonDetailPresenter(interactor: PokemonDetailInteractor(service: PokemonDetailService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching())), id: "https://pokeapi.co/api/v2/pokemon/1/")))
         }
     }
-

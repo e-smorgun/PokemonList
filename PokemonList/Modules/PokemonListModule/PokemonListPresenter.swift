@@ -19,6 +19,9 @@ final class PokemonListPresenter: ObservableObject, PokemonListPresenterProtocol
     
     @Published var pokemonList: [Results] = []
     
+    enum Constants {
+        static let failedToFetchPokemonList = NSLocalizedString("failed_to_fetch_pokemon_list", comment: "")
+    }
     
     init(interactor: PokemonListInteractorProtocol) {
         self.interactor = interactor
@@ -37,7 +40,7 @@ final class PokemonListPresenter: ObservableObject, PokemonListPresenterProtocol
                     self.isLoading = false
                 case .failure(let error):
                     self.isLoading = false
-                    self.error = String(format: NSLocalizedString("failed_to_fetch_pokemon_list", comment: ""), error.localizedDescription)
+                    self.error = String(format: Constants.failedToFetchPokemonList, error.localizedDescription)
                 }
             }
         }

@@ -15,6 +15,10 @@ final class PokemonDetailPresenter: ObservableObject {
     @Published var error: String = ""
     @Published var isLoading: Bool = true
     
+    enum Constants {
+        static let failedToFetchPokemonList = NSLocalizedString("failed_to_fetch_pokemon_list", comment: "")
+    }
+    
     init(interactor: PokemonDetailInteractorProtocol) {
         self.interactor = interactor
     }
@@ -30,7 +34,8 @@ final class PokemonDetailPresenter: ObservableObject {
                     self.isLoading = false
                 case .failure(let error):
                     self.isLoading = false
-                    self.error = String(format: NSLocalizedString("failed_to_fetch_pokemon_data", comment: ""), error.localizedDescription)
+                    self.error = String(format: Constants.failedToFetchPokemonList, error.localizedDescription)
+                    print("Failed to fetch pokemon list: \(error.localizedDescription)")
                 }
             }
         }
