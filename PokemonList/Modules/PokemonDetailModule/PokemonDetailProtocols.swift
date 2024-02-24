@@ -8,14 +8,6 @@
 import Foundation
 import SwiftUI
 
-protocol PokemonDetailPresenterProtocol {
-    
-}
-
-protocol PokemonDetailRouterProtocol {
-    
-}
-
 protocol PokemonDetailInteractorProtocol {
     var urlData: String { get set }
     func fetchPokemonDetail(completion: @escaping (Result<PokemonResult, Error>) -> Void)

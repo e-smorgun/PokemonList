@@ -28,16 +28,18 @@ final class PokemonListPresenter: ObservableObject, PokemonListPresenterProtocol
         isLoading = true
         
         interactor.fetchPokemons(url: url) { result in
-            switch result {
-            case .success(let pokemonResult):
-                self.pokemonList = pokemonResult.results
-                self.nextURL = pokemonResult.next ?? ""
-                self.previousURL = pokemonResult.previous ?? ""
-                self.isLoading = false
-            case .failure(let error):
-                self.isLoading = false
-                self.error = "Failed to fetch pokemon list: \(error.localizedDescription)"
-                print("Failed 1to fetch pokemon list: \(error.localizedDescription)")
+            DispatchQueue.main.async { // Ensure updates are performed on the main thread
+                switch result {
+                case .success(let pokemonResult):
+                    self.pokemonList = pokemonResult.results
+                    self.nextURL = pokemonResult.next ?? ""
+                    self.previousURL = pokemonResult.previous ?? ""
+                    self.isLoading = false
+                case .failure(let error):
+                    self.isLoading = false
+                    self.error = "Failed to fetch pokemon list: \(error.localizedDescription)"
+                    print("Failed to fetch pokemon list: \(error.localizedDescription)")
+                }
             }
         }
     }
