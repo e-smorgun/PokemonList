@@ -119,7 +119,7 @@ struct PokemonDetailView: View {
     
     struct PokemonDetailtView_Previews: PreviewProvider {
         static var previews: some View {
-            PokemonDetailView(presenter: PokemonDetailPresenter(interactor: PokemonDetailInteractor(service: PokemonDetailService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching())), urlData: "https://pokeapi.co/api/v2/pokemon/-1/")))
+            PokemonDetailView(presenter: PokemonDetailPresenter(interactor: PokemonDetailInteractor(service: PokemonDetailService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching())), id: "https://pokeapi.co/api/v2/pokemon/1/")))
         }
     }
 

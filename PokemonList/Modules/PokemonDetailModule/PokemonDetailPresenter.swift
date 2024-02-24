@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-final class PokemonDetailPresenter: ObservableObject, PokemonDetailPresenterProtocol {
+final class PokemonDetailPresenter: ObservableObject {
     private let interactor: PokemonDetailInteractorProtocol
 
     @Published var pokemon: PokemonResult?

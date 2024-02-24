@@ -27,8 +27,8 @@ final class PokemonListPresenter: ObservableObject, PokemonListPresenterProtocol
     private func fetchPokemonList(with url: String? = nil) {
         isLoading = true
         
-        interactor.fetchPokemons(url: url) { result in
-            DispatchQueue.main.async { // Ensure updates are performed on the main thread
+        interactor.fetchPokemons() { result in
+            DispatchQueue.main.async {
                 switch result {
                 case .success(let pokemonResult):
                     self.pokemonList = pokemonResult.results
@@ -60,9 +60,9 @@ final class PokemonListPresenter: ObservableObject, PokemonListPresenterProtocol
         }
     }
     
-    func linkBuilder<Content: View>(for url: String, @ViewBuilder content: () -> Content) -> some View {
+    func linkBuilder<Content: View>(for id: String, @ViewBuilder content: () -> Content) -> some View {
       NavigationLink (
-        destination: router.makeDetailView(url: url)) {
+        destination: router.makeDetailView(id: id)) {
             content()
       }
     }

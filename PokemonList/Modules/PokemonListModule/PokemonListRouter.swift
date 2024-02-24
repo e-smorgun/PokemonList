@@ -10,9 +10,9 @@ import UIKit
 import SwiftUI
 
 class PokemonListRouter {
-    func makeDetailView(url: String) -> some View {
+    func makeDetailView(id: String) -> some View {
         let service = PokemonDetailService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching()))
-        let interactor = PokemonDetailInteractor(service: service, urlData: url)
+        let interactor = PokemonDetailInteractor(service: service, id: id)
         let presenter = PokemonDetailPresenter(interactor: interactor)
         
         return PokemonDetailView(presenter: presenter)

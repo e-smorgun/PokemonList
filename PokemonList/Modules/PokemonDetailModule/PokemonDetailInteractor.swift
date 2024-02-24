@@ -11,15 +11,14 @@ import SwiftUI
 class PokemonDetailInteractor: PokemonDetailInteractorProtocol {
     private let service: PokemonDetailService
 
-    var urlData: String
+    var id: String
     
-    init(service: PokemonDetailService, urlData: String) {
+    init(service: PokemonDetailService, id: String) {
           self.service = service
-          self.urlData = urlData
+          self.id = id
       }
     
     func fetchPokemonDetail(completion: @escaping (Result<PokemonResult, Error>) -> Void) {
-        print("URL: ", urlData)
-        service.fetchDetail(url: urlData, completion: completion)
+        service.fetchDetail(for: id, completion: completion)
     }
 }

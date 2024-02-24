@@ -36,7 +36,7 @@ struct PokemonListView: View {
         VStack {
             List {
                 ForEach (presenter.pokemonList) { pokemon in
-                    self.presenter.linkBuilder(for: pokemon.url) {
+                    self.presenter.linkBuilder(for: pokemon.id) {
                         PokemonRowView(pokemon: pokemon)
                     }
                 }

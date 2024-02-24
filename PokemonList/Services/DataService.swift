@@ -17,6 +17,7 @@ class DataService {
     }
     
     func fetchModel<T: Decodable>(from url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+        print(url)
         if let cachedData = caching.object(forKey: url as NSURL) {
             decodeData(data: cachedData, completion: completion)
             return
