@@ -14,7 +14,11 @@ class PokemonListInteractor: PokemonListInteractorProtocol {
         self.service = service
     }
 
-    func fetchPokemons(completion: @escaping (Result<PokemonListResult, Error>) -> Void) {
-        service.fetchList(completion: completion)
+    func fetchPokemons(url: String?, completion: @escaping (Result<PokemonListResult, Error>) -> Void) {
+        if let url = url {
+            service.fetchList(url: url, completion: completion)
+        } else {
+            service.fetchList(completion: completion)
+        }
     }
 }

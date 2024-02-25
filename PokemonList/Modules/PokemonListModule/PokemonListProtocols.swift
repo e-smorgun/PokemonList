@@ -14,5 +14,5 @@ protocol PokemonListPresenterProtocol {
 }
 
 protocol PokemonListInteractorProtocol {
-    func fetchPokemons(completion: @escaping (Result<PokemonListResult, Error>) -> Void)
+    func fetchPokemons(url: String?, completion: @escaping (Result<PokemonListResult, Error>) -> Void)
 }

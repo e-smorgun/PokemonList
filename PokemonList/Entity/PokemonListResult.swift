@@ -16,7 +16,7 @@ struct PokemonListResult: Decodable {
 }
 
 // MARK: - Result
-struct Results: Decodable, Identifiable {
+struct Results: Decodable, Identifiable, Equatable {
     let name: String
     let url: String
     
