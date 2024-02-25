@@ -29,7 +29,7 @@ final class PokemonListPresenter: ObservableObject, PokemonListPresenterProtocol
     private func fetchPokemonList(with url: String? = nil) {
         isLoading = true
         
-        interactor.fetchPokemons() { result in
+        interactor.fetchPokemons(url: url) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let pokemonResult):

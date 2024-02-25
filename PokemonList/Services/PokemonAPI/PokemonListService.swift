@@ -14,8 +14,12 @@ class PokemonListService {
         self.dataService = dataService
     }
 
-    func fetchList(completion: @escaping (Result<PokemonListResult, Error>) -> Void) {
-        let fetchURL = PokemonAPI.pokemonListURL
-        dataService.fetchModel(from: fetchURL, completion: completion)
+    func fetchList(url: String? = nil, completion: @escaping (Result<PokemonListResult, Error>) -> Void) {
+        if url == nil {
+            let fetchURL = PokemonAPI.pokemonListURL
+            dataService.fetchModel(from: fetchURL, completion: completion)
+        } else {
+            dataService.fetchModel(from: URL(string: url!)!, completion: completion)
+        }
     }
 }
