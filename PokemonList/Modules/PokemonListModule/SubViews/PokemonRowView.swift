@@ -15,7 +15,7 @@ struct PokemonRowView: View {
         VStack {
             Text(pokemon.name.capitalized)
                 .padding(.vertical, 5)
-                .foregroundColor(.black)
+                .foregroundColor(Color("text"))
                 .multilineTextAlignment(.center)
                 .font(.system(size: 24))
         }

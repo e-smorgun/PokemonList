@@ -19,10 +19,11 @@ struct PokemonListView: View {
     
     var body: some View {
         NavigationView {
-            if presenter.isLoading {
+            if presenter.isLoading && presenter.pokemonList.isEmpty {
                 loadingView
             } else if !presenter.error.isEmpty {
                 Text(presenter.error)
+                    .foregroundStyle(Color("text"))
                     .lineLimit(0)
             } else {
                 pokemonListView
@@ -37,6 +38,7 @@ struct PokemonListView: View {
         VStack {
             ProgressView()
             Text(Constants.loadingData)
+                .foregroundStyle(Color("text"))
         }
     }
     
@@ -47,42 +49,16 @@ struct PokemonListView: View {
                     self.presenter.linkBuilder(for: pokemon.id) {
                         PokemonRowView(pokemon: pokemon)
                     }
+                    .onAppear {
+                        if self.presenter.pokemonList.last == pokemon {
+                            presenter.fetchNextPokemonList()
+                        }
+                    }
                 }
             }
             .navigationTitle(Constants.pokemonListTitle)
             .listStyle(PlainListStyle())
-            
-            pagingView
         }
-    }
-    
-    var pagingView: some View {
-        HStack {
-            Button(action: {
-                presenter.fetchPreviousPokemonList()
-            }) {
-                Text(Constants.previousButtonTitle)
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(8)
-            }
-            .disabled(false)
-            
-            Spacer()
-            
-            Button(action: {
-                presenter.fetchNextPokemonList()
-            }) {
-                Text(Constants.nextButtonTitle)
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(8)
-            }
-            .disabled(false)
-        }
-        .padding()
     }
 }
 
