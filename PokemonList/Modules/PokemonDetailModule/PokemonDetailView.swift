@@ -55,19 +55,21 @@ struct PokemonDetailView: View {
                 } placeholder: {
                     ZStack {
                         Rectangle()
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("background"))
+                            .cornerRadius(35)
                         ProgressView()
                     }
                 }
                 .frame(width: 350, height: 350)
                 .overlay(
                     RoundedRectangle(cornerRadius: 35)
-                        .stroke(Color.black, lineWidth: 2)
+                        .stroke(Color.primary, lineWidth: 2)
                 )
             } else {
                 Image(Constants.notFound)
                     .resizable()
                     .frame(width: 350, height: 250)
+                    .cornerRadius(35)
             }
         }
     }
@@ -126,6 +128,6 @@ struct PokemonDetailView: View {
     
     struct PokemonDetailView_Previews: PreviewProvider {
         static var previews: some View {
-            PokemonDetailView(presenter: PokemonDetailPresenter(interactor: PokemonDetailInteractor(service: PokemonDetailService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching())), id: "https://pokeapi.co/api/v2/pokemon/1/")))
+            PokemonDetailView(presenter: PokemonDetailPresenter(interactor: PokemonDetailInteractor(service: PokemonDetailService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching())), id: "1")))
         }
     }
