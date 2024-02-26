@@ -21,10 +21,8 @@ struct PokemonListView: View {
         NavigationView {
             if presenter.isLoading && presenter.pokemonList.isEmpty {
                 loadingView
-            } else if !presenter.error.isEmpty {
-                Text(presenter.error)
-                    .foregroundStyle(Color("text"))
-                    .lineLimit(0)
+            } else if presenter.error != "" && presenter.pokemonList.isEmpty {
+                errorView
             } else {
                 pokemonListView
             }
@@ -33,6 +31,23 @@ struct PokemonListView: View {
             presenter.fetchPokemonList()
         }
     }
+    
+    var errorView: some View {
+        VStack {
+            if presenter.error == "Failed to fetch pokemon list: The operation couldn’t be completed. (No internet connection and no cached data error 0.)" {
+                    Text("No internet connection and cached data")
+            } else {
+                Text(presenter.error)
+                    .lineLimit(5)
+            }
+            Button {
+                presenter.fetchPokemonList()
+            } label: {
+                Text("Try again")
+            }
+        }
+    }
+
     
     var loadingView: some View {
         VStack {
@@ -64,7 +79,7 @@ struct PokemonListView: View {
 
 struct PokemonListView_Previews: PreviewProvider {
     static var previews: some View {
-        let interactor = PokemonListInteractor(service: PokemonListService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching())))
+        let interactor = PokemonListInteractor(service: PokemonListService(dataService: DataService(cacheManager: CacheManager(), fetching: URLSessionDataFetching())))
         let presenter = PokemonListPresenter(interactor: interactor)
         PokemonListView(presenter: presenter)
     }

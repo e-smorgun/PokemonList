@@ -40,7 +40,7 @@ struct PokemonDetailView: View {
     
     var errorView: some View {
         VStack {
-            if presenter.error == "Failed to fetch pokemon list: The operation couldn’t be completed. (No internet connection error 0.)" {
+            if presenter.error == "Failed to fetch pokemon list: The operation couldn’t be completed. (No internet connection and no cached data error 0.)" {
                     Text("No internet connection and cached data")
 
             } else if presenter.error == "Failed to fetch pokemon list: The data couldn’t be read because it is missing." {
@@ -148,6 +148,6 @@ struct PokemonDetailView: View {
     
     struct PokemonDetailView_Previews: PreviewProvider {
         static var previews: some View {
-            PokemonDetailView(presenter: PokemonDetailPresenter(interactor: PokemonDetailInteractor(service: PokemonDetailService(dataService: DataService(caching: NSCacheDataCaching(), fetching: URLSessionDataFetching())), id: "1")))
+            PokemonDetailView(presenter: PokemonDetailPresenter(interactor: PokemonDetailInteractor(service: PokemonDetailService(dataService: DataService(cacheManager: CacheManager(), fetching: URLSessionDataFetching())), id: "1")))
         }
     }
