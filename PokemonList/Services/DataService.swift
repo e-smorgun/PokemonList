@@ -8,11 +8,11 @@
 import Foundation
 
 class DataService {
-    private let caching: DataCaching
+    private let cacheManager: CacheManager
     private let fetching: DataFetching
     
-    init(caching: DataCaching, fetching: DataFetching) {
-        self.caching = caching
+    init(cacheManager: CacheManager, fetching: DataFetching) {
+        self.cacheManager = cacheManager
         self.fetching = fetching
     }
     
@@ -21,22 +21,39 @@ class DataService {
             guard let self = self else { return }
             switch result {
             case .success(let data):
-                self.caching.setObject(data, forKey: url as NSURL)
+                // Convert URL to a valid file URL
+                let fileURL = self.cacheFileURL(for: url)
+                self.cacheManager.saveToCache(cachePath: fileURL, data: data)
                 self.decodeData(data: data, completion: completion)
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
-    
+
     func fetchCachedModell<T: Decodable>(from url: URL, completion: @escaping (Result<T, Error>) -> Void) {
-        if let cachedData = caching.object(forKey: url as NSURL) {
-            decodeData(data: cachedData, completion: completion)
+        // Convert URL to a valid file URL
+        let fileURL = self.cacheFileURL(for: url)
+        
+        if let cachedData = cacheManager.loadFromCache(cachePath: fileURL) {
+            do {
+                let decoder = JSONDecoder()
+                let result = try decoder.decode(T.self, from: cachedData)
+                completion(.success(result))
+            } catch {
+                completion(.failure(error))
+            }
         } else {
-            completion(.failure(NSError(domain: "No internet connection", code: 0, userInfo: nil)))
+            completion(.failure(NSError(domain: "No internet connection and no cached data", code: 0, userInfo: nil)))
         }
     }
-    
+
+    private func cacheFileURL(for url: URL) -> URL {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileURL = documentsURL.appendingPathComponent(url.lastPathComponent)
+        return fileURL
+    }
+
     private func decodeData<T: Decodable>(data: Data, completion: @escaping (Result<T, Error>) -> Void) {
         do {
             let decoder = JSONDecoder()

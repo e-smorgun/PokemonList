@@ -31,13 +31,12 @@ final class PokemonDetailPresenter: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
-                    print(123)
                     self.pokemon = response
                     self.isLoading = false
                 case .failure(let error):
                     self.isLoading = false
                     self.error = String(format: Constants.failedToFetchPokemonList, error.localizedDescription)
-                    print(self.error)
+                    print(123, self.error)
                 }
             }
         }
