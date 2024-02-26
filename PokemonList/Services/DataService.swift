@@ -21,7 +21,6 @@ class DataService {
             guard let self = self else { return }
             switch result {
             case .success(let data):
-                // Convert URL to a valid file URL
                 let fileURL = self.cacheFileURL(for: url)
                 self.cacheManager.saveToCache(cachePath: fileURL, data: data)
                 self.decodeData(data: data, completion: completion)
@@ -32,7 +31,6 @@ class DataService {
     }
 
     func fetchCachedModell<T: Decodable>(from url: URL, completion: @escaping (Result<T, Error>) -> Void) {
-        // Convert URL to a valid file URL
         let fileURL = self.cacheFileURL(for: url)
         
         if let cachedData = cacheManager.loadFromCache(cachePath: fileURL) {
