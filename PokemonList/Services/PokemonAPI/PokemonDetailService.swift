@@ -16,6 +16,10 @@ class PokemonDetailService {
     
     func fetchDetail(for id: String, completion: @escaping (Result<PokemonResult, Error>) -> Void) {
         let detailURL = PokemonAPI.pokemonDetailURL(forID: id)
-        dataService.fetchModel(from: detailURL, completion: completion)
+        if Reachability.isConnectedToNetwork() {
+            dataService.fetchModel(from: detailURL, completion: completion)
+        } else {
+            dataService.fetchCachedModell(from: detailURL, completion: completion)
+        }
     }
 }

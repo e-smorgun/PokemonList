@@ -15,11 +15,17 @@ class PokemonListService {
     }
 
     func fetchList(url: String? = nil, completion: @escaping (Result<PokemonListResult, Error>) -> Void) {
-        if url == nil {
-            let fetchURL = PokemonAPI.pokemonListURL
+        let fetchURL: URL
+        if let urlString = url, let providedURL = URL(string: urlString) {
+            fetchURL = providedURL
+        } else {
+            fetchURL = PokemonAPI.pokemonListURL
+        }
+        
+        if Reachability.isConnectedToNetwork() {
             dataService.fetchModel(from: fetchURL, completion: completion)
         } else {
-            dataService.fetchModel(from: URL(string: url!)!, completion: completion)
+            dataService.fetchCachedModell(from: fetchURL, completion: completion)
         }
     }
 }

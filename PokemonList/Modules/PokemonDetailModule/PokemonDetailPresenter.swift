@@ -24,18 +24,20 @@ final class PokemonDetailPresenter: ObservableObject {
     }
     
     func fetchPokemonData() {
+        error = ""
         isLoading = true
         
         interactor.fetchPokemonDetail() { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
+                    print(123)
                     self.pokemon = response
                     self.isLoading = false
                 case .failure(let error):
                     self.isLoading = false
                     self.error = String(format: Constants.failedToFetchPokemonList, error.localizedDescription)
-                    print("Failed to fetch pokemon list: \(error.localizedDescription)")
+                    print(self.error)
                 }
             }
         }

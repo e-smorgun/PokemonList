@@ -22,7 +22,7 @@ struct PokemonDetailView: View {
             if presenter.isLoading {
                 loadingView
             } else if !presenter.error.isEmpty {
-                Text(presenter.error)
+                errorView
             } else {
                 VStack(alignment: .center) {
                     pokemonImageView
@@ -35,6 +35,26 @@ struct PokemonDetailView: View {
         .padding(.horizontal, 10)
         .onAppear {
             presenter.fetchPokemonData()
+        }
+    }
+    
+    var errorView: some View {
+        VStack {
+            if presenter.error == "Failed to fetch pokemon list: The operation couldn’t be completed. (No internet connection error 0.)" {
+                    Text("No internet connection and cached data")
+
+            } else if presenter.error == "Failed to fetch pokemon list: The data couldn’t be read because it is missing." {
+                Text("No data was found for this Pokemon.")
+            } else {
+                Text(presenter.error)
+                    .lineLimit(0)
+                    .frame(alignment: .center)
+            }
+            Button {
+                presenter.fetchPokemonData()
+            } label: {
+                Text("Try again")
+            }
         }
     }
     

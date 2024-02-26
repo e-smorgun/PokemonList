@@ -38,6 +38,7 @@ final class PokemonListPresenter: ObservableObject, PokemonListPresenterProtocol
                     self.isLoading = false
                 case .failure(let error):
                     self.isLoading = false
+                    print(error.localizedDescription)
                     self.error = String(format: Constants.failedToFetchPokemonList, error.localizedDescription)
                 }
             }

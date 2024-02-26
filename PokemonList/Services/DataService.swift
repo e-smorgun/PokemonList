@@ -17,12 +17,6 @@ class DataService {
     }
     
     func fetchModel<T: Decodable>(from url: URL, completion: @escaping (Result<T, Error>) -> Void) {
-        print(url)
-        if let cachedData = caching.object(forKey: url as NSURL) {
-            decodeData(data: cachedData, completion: completion)
-            return
-        }
-        
         fetching.fetchData(from: url) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -32,6 +26,14 @@ class DataService {
             case .failure(let error):
                 completion(.failure(error))
             }
+        }
+    }
+    
+    func fetchCachedModell<T: Decodable>(from url: URL, completion: @escaping (Result<T, Error>) -> Void) {
+        if let cachedData = caching.object(forKey: url as NSURL) {
+            decodeData(data: cachedData, completion: completion)
+        } else {
+            completion(.failure(NSError(domain: "No internet connection", code: 0, userInfo: nil)))
         }
     }
     
